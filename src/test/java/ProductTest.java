@@ -1,14 +1,13 @@
 import org.example.Product;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ProductTest {
 
     @Test
-    public void ProductCakeTest() {
+    public void productCakeTest() {
         Product cake = new Product("cake");
         Product vanilla = new Product("vanilla");
         Product cacao = new Product("cacao");
@@ -31,7 +30,7 @@ public class ProductTest {
     }
 
     @Test
-    public void ProductDoughTest() {
+    public void productDoughTest() {
         Product dough = new Product("dough");
         Product flour = new Product("flour");
         Product eggs = new Product("eggs");
@@ -44,5 +43,72 @@ public class ProductTest {
         assertFalse(flour.addProduct(dough));
         assertTrue(dough.addProduct(wheat));
         assertFalse(wheat.addProduct(dough));
+    }
+
+    @Test
+    public void houseTest() {
+        Product house = new Product("house");
+        Product door = new Product("door");
+        Product window = new Product("window");
+        Product walls = new Product("walls");
+        Product woods = new Product("woods");
+        Product knob = new Product("knob");
+        Product glass = new Product("glass");
+        Product brick = new Product("brick");
+        Product cement = new Product("cement");
+
+        assertTrue(door.addProduct(woods));
+        assertTrue(door.addProduct(knob));
+
+        assertTrue(window.addProduct(woods));
+        assertTrue(window.addProduct(glass));
+        assertTrue(window.addProduct(knob));
+
+        assertTrue(walls.addProduct(brick));
+        assertTrue(walls.addProduct(cement));
+
+        assertTrue(house.addProduct(walls));
+        assertTrue(house.addProduct(door));
+        assertTrue(house.addProduct(window));
+
+        assertFalse(walls.addProduct(house));
+        assertFalse(woods.addProduct(house));
+        assertFalse(walls.addProduct(house));
+        assertFalse(knob.addProduct(door));
+        assertFalse(knob.addProduct(window));
+    }
+
+    @Test
+    public void partTest() {
+        Product house = new Product("house");
+        Product door = new Product("door");
+        Product window = new Product("window");
+        Product walls = new Product("walls");
+        Product woods = new Product("woods");
+        Product knob = new Product("knob");
+        Product glass = new Product("glass");
+        Product brick = new Product("brick");
+        Product cement = new Product("cement");
+
+        assertTrue(door.addProduct(woods));
+        assertTrue(door.addProduct(knob));
+
+        assertTrue(window.addProduct(woods));
+        assertTrue(window.addProduct(glass));
+        assertTrue(window.addProduct(knob));
+
+        assertTrue(walls.addProduct(brick));
+        assertTrue(walls.addProduct(cement));
+
+        assertTrue(house.addProduct(walls));
+        assertTrue(house.addProduct(door));
+        assertTrue(house.addProduct(window));
+
+        assertFalse(walls.addProduct(house));
+        assertFalse(woods.addProduct(house));
+        assertFalse(walls.addProduct(house));
+        assertFalse(knob.addProduct(door));
+        assertFalse(knob.addProduct(window));
+
     }
 }
