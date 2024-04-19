@@ -17,7 +17,7 @@ public class Product {
     }
 
     public boolean addProduct(Product product) {
-        if (product == this || product.hasIngredient(this)) {
+        if (product.hasIngredient(this)) {
             return false;
         }
         ingredients.add(product);
@@ -29,11 +29,6 @@ public class Product {
         if (this == product) {
             return true;
         }
-        for (Product ingredient : ingredients) {
-            if (ingredient.hasIngredient(product)) {
-                return true;
-            }
-        }
-        return false;
+        return this.getIngredients().contains(product);
     }
 }
