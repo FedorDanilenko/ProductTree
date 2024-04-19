@@ -90,25 +90,14 @@ public class ProductTest {
         Product brick = new Product("brick");
         Product cement = new Product("cement");
 
-        assertTrue(door.addProduct(woods));
-        assertTrue(door.addProduct(knob));
+        assertTrue(cement.addProduct(brick));
+        assertTrue(cement.addProduct(glass));
+        assertTrue(glass.addProduct(brick));
+        assertFalse(brick.addProduct(glass));
+        assertTrue(brick.addProduct(knob));
+        assertTrue(knob.addProduct(house));
 
-        assertTrue(window.addProduct(woods));
-        assertTrue(window.addProduct(glass));
-        assertTrue(window.addProduct(knob));
-
-        assertTrue(walls.addProduct(brick));
-        assertTrue(walls.addProduct(cement));
-
-        assertTrue(house.addProduct(walls));
-        assertTrue(house.addProduct(door));
-        assertTrue(house.addProduct(window));
-
-        assertFalse(walls.addProduct(house));
-        assertFalse(woods.addProduct(house));
-        assertFalse(walls.addProduct(house));
-        assertFalse(knob.addProduct(door));
-        assertFalse(knob.addProduct(window));
+        assertFalse(house.addProduct(cement));
 
     }
 }
