@@ -8,10 +8,12 @@ import java.util.Set;
 public class Product {
     private String name;
     private Set<Product> ingredients;
+    Map<String, Boolean> ingredientCache;
 
     public Product(String name) {
         this.name = name;
         this.ingredients = new HashSet<>();
+        this.ingredientCache = new HashMap<>();
     }
 
     private Set<Product> getIngredients() {
@@ -27,13 +29,16 @@ public class Product {
             return false;
         }
         ingredients.add(product);
-        ingredients.addAll(product.getIngredients());
+        ingredientCache.put(product.getName(), true);
         return true;
     }
 
     private boolean hasIngredient(Product product) {
         if (this == product) {
             return true;
+        }
+        if (ingredientCache.containsKey(product.getName())) {
+            return ingredientCache.get(product.getName());
         }
         for (Product ingredient : ingredients) {
             if (ingredient.hasIngredient(product)) {

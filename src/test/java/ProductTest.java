@@ -80,24 +80,18 @@ public class ProductTest {
 
     @Test
     public void partTest() {
-        Product house = new Product("house");
-        Product door = new Product("door");
-        Product window = new Product("window");
-        Product walls = new Product("walls");
-        Product woods = new Product("woods");
-        Product knob = new Product("knob");
-        Product glass = new Product("glass");
-        Product brick = new Product("brick");
-        Product cement = new Product("cement");
+        Product dough = new Product("dough");
+        Product flour = new Product("flour");
+        Product eggs = new Product("eggs");
+        Product water = new Product("water");
+        Product wheat = new Product("wheat");
 
-        assertTrue(cement.addProduct(brick));
-        assertTrue(cement.addProduct(glass));
-        assertTrue(glass.addProduct(brick));
-        assertFalse(brick.addProduct(glass));
-        assertTrue(brick.addProduct(knob));
-        assertTrue(knob.addProduct(house));
+        assertTrue(flour.addProduct(wheat));
+        assertTrue(wheat.addProduct(dough));
 
-        assertFalse(house.addProduct(cement));
+        assertTrue(dough.addProduct(eggs));
+        assertTrue(dough.addProduct(water));
 
+        assertFalse(dough.addProduct(flour));
     }
 }
