@@ -3,7 +3,7 @@ package org.example;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Product implements ProductInterface {
+public class Product {
     private String name;
     private Set<Product> ingredients;
 
