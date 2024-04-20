@@ -84,6 +84,7 @@ public class ProductTest {
         Product flour = new Product("flour");
         Product eggs = new Product("eggs");
         Product water = new Product("water");
+        Product sugar = new Product("sugar");
         Product wheat = new Product("wheat");
 
         assertTrue(flour.addProduct(wheat));
@@ -93,5 +94,37 @@ public class ProductTest {
         assertTrue(dough.addProduct(water));
 
         assertFalse(dough.addProduct(flour));
+        assertFalse(eggs.addProduct(dough));
+
+        assertTrue(eggs.addProduct(water));
+        assertTrue(water.addProduct(sugar));
+        assertFalse(sugar.addProduct(dough));
+    }
+
+    @Test
+    public void memoizTest() {
+        Product p1 = new Product("p1");
+        Product p2 = new Product("p2");
+        Product p3 = new Product("p3");
+        Product p4 = new Product("p4");
+        Product p5 = new Product("p5");
+        Product p6 = new Product("p6");
+
+        assertTrue(p1.addProduct(p2));
+        assertTrue(p1.addProduct(p3));
+
+        assertTrue(p2.addProduct(p4));
+        assertTrue(p2.addProduct(p5));
+        assertFalse(p2.addProduct(p1));
+
+        assertTrue(p5.addProduct(p4));
+        assertTrue(p5.addProduct(p6));
+        assertFalse(p6.addProduct(p1));
+
+        assertTrue(p3.addProduct(p2));
+        assertTrue(p3.addProduct(p6));
+        assertFalse(p2.addProduct(p1));
+        assertFalse(p6.addProduct(p1));
+
     }
 }

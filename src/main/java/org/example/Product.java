@@ -8,19 +8,19 @@ import java.util.Set;
 public class Product {
     private String name;
     private Set<Product> ingredients;
-    Map<String, Boolean> ingredientCache;
+    private Map<String, Boolean> ingredientCache;
 
     public Product(String name) {
         this.name = name;
         this.ingredients = new HashSet<>();
-        this.ingredientCache = new HashMap<>();
+        this.ingredientCache = new HashMap<>(); // Мемоизация
     }
 
-    private Set<Product> getIngredients() {
+    public Set<Product> getIngredients() {
         return ingredients;
     }
 
-    private String getName() {
+    public String getName() {
         return name;
     }
 
@@ -29,22 +29,26 @@ public class Product {
             return false;
         }
         ingredients.add(product);
-        ingredientCache.put(product.getName(), true);
+        ingredients.addAll(product.getIngredients());
+        invalidateCache();
         return true;
+    }
+
+    private void invalidateCache() {
+        ingredientCache.clear();
     }
 
     private boolean hasIngredient(Product product) {
         if (this == product) {
             return true;
         }
+        // Мемоизация
         if (ingredientCache.containsKey(product.getName())) {
             return ingredientCache.get(product.getName());
         }
-        for (Product ingredient : ingredients) {
-            if (ingredient.hasIngredient(product)) {
-                return true;
-            }
-        }
-        return false;
+        boolean result = ingredients.contains(product) ||
+            ingredients.stream().anyMatch(ingredient -> ingredient.hasIngredient(product));
+        ingredientCache.put(product.getName(), result);
+        return result;
     }
 }
