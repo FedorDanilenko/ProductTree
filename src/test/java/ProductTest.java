@@ -110,8 +110,8 @@ public class ProductTest {
         Product p5 = new Product("p5");
         Product p6 = new Product("p6");
 
-        assertTrue(p1.addProduct(p2));
         assertTrue(p1.addProduct(p3));
+        assertTrue(p1.addProduct(p2));
 
         assertTrue(p2.addProduct(p4));
         assertTrue(p2.addProduct(p5));

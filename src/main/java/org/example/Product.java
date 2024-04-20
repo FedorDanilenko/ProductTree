@@ -7,17 +7,17 @@ import java.util.Set;
 
 public class Product {
     private String name;
-    private Set<Product> ingredients;
+    private Set<Product> allIngredients;
     private Map<String, Boolean> ingredientCache;
 
     public Product(String name) {
         this.name = name;
-        this.ingredients = new HashSet<>();
+        this.allIngredients = new HashSet<>();
         this.ingredientCache = new HashMap<>(); // Мемоизация
     }
 
-    public Set<Product> getIngredients() {
-        return ingredients;
+    public Set<Product> getAllIngredients() {
+        return allIngredients;
     }
 
     public String getName() {
@@ -28,8 +28,8 @@ public class Product {
         if (product.hasIngredient(this)) {
             return false;
         }
-        ingredients.add(product);
-        ingredients.addAll(product.getIngredients());
+        allIngredients.add(product);
+        allIngredients.addAll(product.getAllIngredients());
         invalidateCache();
         return true;
     }
@@ -46,9 +46,11 @@ public class Product {
         if (ingredientCache.containsKey(product.getName())) {
             return ingredientCache.get(product.getName());
         }
-        boolean result = ingredients.contains(product) ||
-            ingredients.stream().anyMatch(ingredient -> ingredient.hasIngredient(product));
+
+        boolean result = allIngredients.contains(product) ||
+            allIngredients.stream().anyMatch(ingredient -> ingredient.hasIngredient(product));
         ingredientCache.put(product.getName(), result);
+
         return result;
     }
 }
